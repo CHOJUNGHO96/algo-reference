@@ -1,209 +1,198 @@
-# Algorithm Content Generator
+# 알고리즘 콘텐츠 생성기
 
-AI-powered content generation system for algorithm reference platform.
+Claude Code 서브에이전트를 사용하여 20개 알고리즘 참고 자료를 자동 생성합니다.
 
-## Overview
+## 🎯 개요
 
-This module generates high-quality algorithm content following an 8-point structure:
-1. Concept Summary
-2. Core Formulas/Patterns
-3. Thought Process
-4. Application Conditions
-5. Time/Space Complexity
-6. Representative Problem Types
-7. Code Templates (Python, C++, Java)
-8. Common Mistakes
+이 디렉토리는 알고리즘 학습 플랫폼을 위한 고품질 콘텐츠를 AI로 자동 생성하는 시스템입니다.
 
-## Directory Structure
+**생성 방식**: Claude Code 서브에이전트 (Python 스크립트 없음, AI 기반 자동화)
+
+## 📂 디렉토리 구조
 
 ```
 content-generator/
-├── algorithm_catalog.json      # 20 curated algorithms with metadata
+├── algorithm_catalog.json      # 20개 알고리즘 목록
 ├── prompts/
-│   ├── algorithm_prompt.md     # Master AI prompt template
-│   ├── code_template_prompt.md # Code generation guidelines
-│   └── validation_rules.md     # Content quality standards
-├── schemas/
-│   └── content_schema.py       # Pydantic validation schema
-├── generated/                  # AI-generated JSON outputs
-├── generate_algorithms.py      # Main generation script
-├── requirements.txt
-└── README.md                   # This file
+│   ├── algorithm_prompt.md     # 콘텐츠 생성 프롬프트 (한글)
+│   └── validation_rules.md     # 품질 검증 규칙 (한글)
+├── generated/                  # 생성된 JSON 파일 저장 위치
+└── README.md                   # 이 파일
 ```
 
-## Phase 1: Preparation (Complete)
+## 🚀 사용 방법
 
-✅ **Algorithm Catalog** (`algorithm_catalog.json`)
-- 20 core algorithms across 10+ categories
-- Prioritized by interview frequency
-- Rich metadata (difficulty, keywords, category)
+### 1단계: 서브에이전트 확인
 
-✅ **AI Prompt Template** (`prompts/algorithm_prompt.md`)
-- Comprehensive 8-point structure
-- Detailed requirements for each section
-- JSON output format specification
-- Quality guidelines embedded
+Claude Code에서 다음 에이전트가 설치되어 있는지 확인:
 
-✅ **Validation Schema** (`schemas/content_schema.py`)
-- Pydantic models for all content types
-- Field-level validators (length, format, content)
-- Custom validators for code quality
-- Example data included
-
-✅ **Generation Script** (`generate_algorithms.py`)
-- Catalog loading and validation
-- Prompt preparation
-- Placeholder for AI integration
-- Content validation and saving
-
-## Phase 2: AI Generation (Upcoming)
-
-**Implementation Steps**:
-1. Set up AI API credentials (Claude 3.5 Sonnet recommended)
-2. Implement `generate_algorithm_content()` function
-3. Add error handling and retry logic
-4. Run generation for all 20 algorithms
-5. Manual review and refinement
-
-## Usage
-
-### Validation Mode (Phase 1)
 ```bash
-# Install dependencies
-pip install -r requirements.txt
+# 에이전트 목록 보기
+/agents
 
-# Run validation checks
-python generate_algorithms.py --validate
-
-# Expected output:
-# ✅ Loaded 20 algorithms from catalog
-# ✅ Catalog structure validation passed
-# ✅ Loaded prompt template
-# ✅ Prompt preparation test successful
-# ✅ Output directory ready
-# 🚀 Ready for Phase 2: AI content generation
+# 확인할 에이전트:
+# - algorithm-generator-part1 (알고리즘 1-10번)
+# - algorithm-generator-part2 (알고리즘 11-20번)
 ```
 
-### Generation Mode (Phase 2)
+에이전트 파일 위치: `.claude/agents/`
+
+### 2단계: 병렬 생성 실행 (권장)
+
+```
+Use algorithm-generator-part1 and algorithm-generator-part2 in parallel to generate all 20 algorithms
+```
+
+### 3단계: 진행 상태 확인
+
+```
+Check algorithm-generator-part1 memory
+Check algorithm-generator-part2 memory
+```
+
+### 4단계: 생성 결과 확인
+
 ```bash
-# Generate all algorithms
-python generate_algorithms.py --generate
+# 생성된 파일 목록
+ls content-generator/generated/
 
-# Generate specific algorithm
-python generate_algorithms.py --generate --algorithm "Two Pointer Technique"
+# 예상 파일:
+# - two-pointer-technique.json
+# - sliding-window.json
+# - binary-search-template.json
+# - ... (총 20개)
 ```
 
-## Algorithm Catalog
+## 📋 20개 알고리즘 목록
 
-### Categories (20 algorithms)
-- **Two Pointer** (1): Two Pointer Technique
-- **Sliding Window** (1): Sliding Window
-- **Binary Search** (1): Binary Search Template
-- **Tree/Graph** (2): DFS, BFS
-- **Dynamic Programming** (2): 1D DP, 2D DP
-- **Greedy** (1): Greedy Algorithm Pattern
-- **Graph** (2): Union-Find, Topological Sort, Dijkstra's
-- **Tree** (1): Trie
-- **Heap** (1): Heap & Priority Queue
-- **Stack** (1): Monotonic Stack
-- **Linked List** (1): Fast & Slow Pointers
-- **Backtracking** (1): Backtracking Template
-- **Array** (2): Prefix Sum, Kadane's Algorithm
-- **Interval** (1): Merge Intervals
-- **Bit Manipulation** (1): Bit Manipulation Patterns
-
-### Priority Ranking
+### Part 1 (1-10번)
 1. Two Pointer Technique
 2. Sliding Window
 3. Binary Search Template
-4. DFS
-5. BFS
-6-20. Additional core patterns
+4. Depth-First Search (DFS)
+5. Breadth-First Search (BFS)
+6. Dynamic Programming - 1D DP
+7. Dynamic Programming - 2D DP
+8. Greedy Algorithm Pattern
+9. Union-Find
+10. Topological Sort
 
-## Quality Standards
+### Part 2 (11-20번)
+11. Dijkstra's Algorithm
+12. Trie
+13. Heap & Priority Queue
+14. Monotonic Stack
+15. Fast & Slow Pointers
+16. Backtracking Template
+17. Prefix Sum
+18. Kadane's Algorithm
+19. Merge Intervals
+20. Bit Manipulation Patterns
 
-### Validation Criteria
-- ✅ All 8 sections complete and non-empty
-- ✅ Concept summary: 100-500 chars
-- ✅ Core formulas: 2-4 items with descriptions
-- ✅ Thought process: 200+ chars with numbered steps
-- ✅ Application conditions: 3-5 "when to use", 2-3 "when not to use"
-- ✅ Complexity: Valid Big-O notation with explanations
-- ✅ Problem types: 3+ types with 2+ LeetCode examples each
-- ✅ Code templates: 100+ chars per language, no syntax errors
-- ✅ Common mistakes: 150+ chars with specific pitfalls
+## 📐 8가지 콘텐츠 구조
 
-### AI Model Recommendations
-- **Primary**: Claude 3.5 Sonnet (best code quality, detailed explanations)
-- **Alternative**: GPT-4 Turbo (good consistency, JSON mode support)
-- **Cost**: ~$0.05-0.15 per algorithm (estimated)
+각 알고리즘은 다음 구조로 생성됩니다:
 
-## Phase 2 Implementation Notes
+1. **개념 요약** - 한 문단 설명 (100-500자)
+2. **핵심 공식/패턴** - 2-4개 패턴
+3. **사고 과정** - 단계별 접근법 (200자 이상)
+4. **적용 조건** - 언제 사용/사용하지 말까
+5. **시간/공간 복잡도** - Big-O 표기법
+6. **대표 문제 유형** - 3개 이상 LeetCode 예시
+7. **코드 템플릿** - Python, C++, Java
+8. **주의사항** - 3-5개 함정
 
-### AI API Setup
-```python
-# Option 1: Anthropic Claude (Recommended)
-from anthropic import Anthropic
+## ⏱️ 예상 소요 시간
 
-client = Anthropic(api_key="your_api_key")
-response = client.messages.create(
-    model="claude-3-5-sonnet-20241022",
-    max_tokens=4096,
-    messages=[{"role": "user", "content": prompt}]
-)
-content = json.loads(response.content[0].text)
+- **순차 실행**: 60-80분
+- **병렬 실행**: 30-40분 (권장)
 
-# Option 2: OpenAI GPT
-from openai import OpenAI
+## 🔍 품질 기준
 
-client = OpenAI(api_key="your_api_key")
-response = client.chat.completions.create(
-    model="gpt-4-turbo-preview",
-    messages=[{"role": "user", "content": prompt}],
-    response_format={"type": "json_object"}
-)
-content = json.loads(response.choices[0].message.content)
+생성된 콘텐츠는 다음 기준을 충족합니다:
+
+- ✅ 모든 필수 필드 존재
+- ✅ 길이 제약 준수 (개념 요약 100-500자 등)
+- ✅ 유효한 Big-O 표기법
+- ✅ LeetCode 문제 형식 (LC 숫자. 제목)
+- ✅ 실행 가능한 코드 템플릿 (100자 이상)
+
+## 📝 생성 예시
+
+```json
+{
+  "title": "Two Pointer Technique",
+  "category": "Two Pointer",
+  "difficulty": "Medium",
+  "concept_summary": "두 개의 포인터를 사용하여 배열이나 문자열을 효율적으로 탐색하는 기법...",
+  "core_formulas": [
+    {
+      "name": "반대 방향 포인터",
+      "formula": "left = 0, right = n-1; while left < right: ...",
+      "description": "정렬된 배열에서 쌍을 찾을 때 사용..."
+    }
+  ],
+  "thought_process": "1. 인식: 정렬된 배열, 쌍/삼중 찾기...",
+  "application_conditions": {
+    "when_to_use": ["정렬된 배열", "회문 검증", ...],
+    "when_not_to_use": ["빈도 수 세기", ...]
+  },
+  "time_complexity": "O(n) - 포인터가 각각 한 번씩 이동",
+  "space_complexity": "O(1) - 추가 공간 불필요",
+  "problem_types": [
+    {
+      "type": "쌍 찾기",
+      "leetcode_examples": ["LC 1. Two Sum", "LC 15. 3Sum"]
+    }
+  ],
+  "common_mistakes": "1. Off-by-One 에러...",
+  "code_templates": {
+    "python": "def two_pointer(arr: list[int]) -> int:\n    ...",
+    "cpp": "class Solution {\n    int twoPointer(vector<int>& arr) {...}\n};",
+    "java": "class Solution {\n    public int twoPointer(int[] arr) {...}\n}"
+  }
+}
 ```
 
-### Error Handling
-- Retry logic for API failures (3 attempts)
-- Validation failures trigger prompt refinement
-- Manual review queue for edge cases
-- Cost tracking and budget limits
+## 🔄 중단 후 재개
 
-### Quality Control
-1. Automated Pydantic validation
-2. Code syntax checking (AST parsing)
-3. LeetCode problem number verification
-4. Manual review of first 3 generated algorithms
-5. Iterative prompt refinement based on feedback
+생성 중 중단된 경우:
 
-## Success Criteria
+```
+Resume algorithm-generator-part1 and continue from where it stopped
+Resume algorithm-generator-part2 and continue from where it stopped
+```
 
-**Phase 1** ✅:
-- [x] 20 algorithms cataloged with metadata
-- [x] Comprehensive AI prompt template
-- [x] Robust Pydantic validation schema
-- [x] Generation script structure ready
-- [x] All validation checks pass
+각 에이전트는 진행 상태를 메모리에 저장하여 정확히 중단한 위치에서 재개합니다.
 
-**Phase 2** (Upcoming):
-- [ ] AI API integration complete
-- [ ] 20 algorithms generated and validated
-- [ ] Manual review passed (≥90% quality score)
-- [ ] JSON files ready for database seeding
-- [ ] Cost within budget (<$5 total)
+## 📊 다음 단계
 
-## Next Steps
+모든 알고리즘 생성 완료 후:
 
-1. **Set up API credentials**: Create `.env` file with `ANTHROPIC_API_KEY`
-2. **Implement AI generation**: Complete `generate_algorithm_content()` function
-3. **Test with single algorithm**: Validate output quality
-4. **Refine prompts**: Adjust based on initial results
-5. **Batch generate**: Process all 20 algorithms
-6. **Manual review**: Check for accuracy and completeness
-7. **Export to database**: Integration with backend seeding script
+1. **검증**: 생성된 JSON 파일 검토
+2. **변환**: 백엔드 시드 데이터 형식으로 변환
+3. **삽입**: 데이터베이스에 삽입
+4. **테스트**: 프론트엔드에서 표시 확인
 
-## License
+## 🛠️ 트러블슈팅
 
-Part of the Algorithm Reference Platform project.
+### 에이전트가 안 보일 때
+```bash
+# Claude Code 재시작 또는
+/agents
+```
+
+### 생성 실패 시
+```
+Check algorithm-generator-part1 memory
+# 실패 원인 확인 후 해당 알고리즘만 재생성
+```
+
+### 파일 충돌 시
+- 각 에이전트는 다른 알고리즘을 담당하므로 충돌 없음
+
+---
+
+**생성 일자**: 2026-02-12
+**방식**: Claude Code 서브에이전트
+**언어**: 한글
