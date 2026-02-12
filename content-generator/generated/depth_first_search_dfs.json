@@ -1,0 +1,96 @@
+{
+  "title": "Depth-First Search (DFS)",
+  "category": "Tree/Graph",
+  "difficulty": "Medium",
+  "concept_summary": "Depth-First Search (DFS) is a graph traversal algorithm that explores as far as possible along each branch before backtracking. It uses a stack data structure (either explicit or via recursion call stack) to track the exploration path. DFS is fundamental for tree/graph problems including path finding, cycle detection, topological sorting, and connected components. The recursive nature makes it elegant for problems requiring exhaustive search like backtracking, while the iterative version provides more control over the exploration process.",
+  "core_formulas": [
+    {
+      "name": "Recursive DFS Template",
+      "formula": "def dfs(node, visited): if node in visited: return; visited.add(node); process(node); for neighbor in node.neighbors: dfs(neighbor, visited)",
+      "description": "Classic recursive DFS using call stack. Mark node as visited before recursion to prevent cycles. Process node either pre-order (before recursion), in-order (between children for binary trees), or post-order (after recursion). Use for tree traversal, path finding, and problems requiring backtracking."
+    },
+    {
+      "name": "Iterative DFS with Stack",
+      "formula": "stack = [start]; visited = set(); while stack: node = stack.pop(); if node in visited: continue; visited.add(node); process(node); stack.extend(reversed(node.neighbors))",
+      "description": "Iterative DFS using explicit stack, mimics recursion. Pop from stack gives LIFO order (depth-first). Reverse neighbors when adding to maintain left-to-right order similar to recursion. Use when recursion depth might cause stack overflow or need more control."
+    },
+    {
+      "name": "DFS with Path Tracking",
+      "formula": "def dfs(node, path, target): if node == target: return path; for neighbor in node.neighbors: if neighbor not in path: result = dfs(neighbor, path + [neighbor], target); if result: return result",
+      "description": "DFS that tracks current path from root to node. Essential for finding paths, detecting cycles, or problems requiring full path information. Path is part of state, not global, allowing backtracking. Use for all-paths problems, cycle detection with path, or Hamilton path."
+    }
+  ],
+  "thought_process": "1. **Graph Representation**: Identify how graph/tree is represented - adjacency list, adjacency matrix, TreeNode objects, or implicit graph. Determine if directed or undirected.\n\n2. **Visited Tracking**: Decide on visited structure - set for simple traversal, path list for cycle detection, or state dict for complex problems. Initialize visited before DFS starts.\n\n3. **Recursion vs Iteration**: Choose recursive for simplicity and tree problems, iterative for explicit stack control or deep graphs. Recursive is cleaner, iterative avoids stack overflow.\n\n4. **Processing Order**: Determine when to process node - pre-order (process before children), in-order (for BST), or post-order (process after children). Affects result significantly.\n\n5. **Neighbor Exploration**: Iterate through neighbors/children. For trees, typically left-to-right. For graphs, order may matter for specific problems.\n\n6. **Base Cases**: Handle null nodes, visited nodes, and target found conditions. Return appropriate values for each base case.\n\n7. **Backtracking**: For path-tracking problems, remove node from path/visited when returning from recursion. Essential for finding all paths or permutations.\n\n8. **Result Aggregation**: Collect results during DFS - count, paths, or boolean flags. Decide if early termination is possible or need exhaustive search.",
+  "application_conditions": {
+    "when_to_use": [
+      "Tree traversal (pre-order, in-order, post-order) and tree problems",
+      "Finding paths between nodes, or checking if path exists",
+      "Detecting cycles in directed or undirected graphs",
+      "Topological sorting of directed acyclic graphs (DAG)",
+      "Finding connected components or strongly connected components",
+      "Backtracking problems (permutations, combinations, N-Queens, Sudoku)",
+      "Maze solving or grid-based path exploration"
+    ],
+    "when_not_to_use": [
+      "Finding shortest path in unweighted graphs (use BFS instead for optimal O(V+E))",
+      "Level-order traversal or problems requiring level information (use BFS)",
+      "Memory constraints with very deep graphs (DFS uses O(h) space, BFS uses O(w))",
+      "When breadth-first exploration is more natural for problem domain"
+    ]
+  },
+  "time_complexity": "O(V + E) - Visit each vertex V once and explore each edge E once. For trees, E = V-1 so O(V). For dense graphs, E ≈ V² so O(V²). Recursive version has same time but O(h) call stack space where h is max depth.",
+  "space_complexity": "O(V) - Visited set stores up to V vertices. Recursive uses O(h) call stack where h is tree height (O(log V) balanced, O(V) skewed). Iterative uses O(V) for explicit stack in worst case. Path tracking adds O(h) for current path.",
+  "problem_types": [
+    {
+      "type": "Tree Traversal and Properties",
+      "leetcode_examples": [
+        "LC 94. Binary Tree Inorder Traversal",
+        "LC 144. Binary Tree Preorder Traversal",
+        "LC 145. Binary Tree Postorder Traversal",
+        "LC 104. Maximum Depth of Binary Tree",
+        "LC 543. Diameter of Binary Tree"
+      ]
+    },
+    {
+      "type": "Path and Route Finding",
+      "leetcode_examples": [
+        "LC 112. Path Sum",
+        "LC 113. Path Sum II",
+        "LC 257. Binary Tree Paths",
+        "LC 129. Sum Root to Leaf Numbers"
+      ]
+    },
+    {
+      "type": "Graph Connectivity and Components",
+      "leetcode_examples": [
+        "LC 200. Number of Islands",
+        "LC 695. Max Area of Island",
+        "LC 547. Number of Provinces",
+        "LC 733. Flood Fill"
+      ]
+    },
+    {
+      "type": "Cycle Detection and Topology",
+      "leetcode_examples": [
+        "LC 207. Course Schedule",
+        "LC 210. Course Schedule II",
+        "LC 802. Find Eventual Safe States"
+      ]
+    },
+    {
+      "type": "Backtracking and Exhaustive Search",
+      "leetcode_examples": [
+        "LC 46. Permutations",
+        "LC 78. Subsets",
+        "LC 39. Combination Sum",
+        "LC 51. N-Queens"
+      ]
+    }
+  ],
+  "common_mistakes": "❌ **Forgetting to Mark as Visited**: Not marking node as visited before recursion causes infinite loops in graphs with cycles. In trees, leads to exponential time revisiting nodes.\n✅ **Fix**: Mark visited immediately when entering DFS: `visited.add(node)` before processing or recursing. For backtracking, unmark when returning: `visited.remove(node)`.\n\n❌ **Wrong Processing Order**: Using pre-order when post-order needed (e.g., tree height calculation) or vice versa. Results in incorrect values.\n✅ **Fix**: Pre-order for node processing before children, post-order for aggregating child results, in-order for BST sorted traversal. Match order to problem requirements.\n\n❌ **Not Handling Null/None Nodes**: Forgetting null check causes AttributeError/NullPointerException when accessing node.left or node.right.\n✅ **Fix**: Always check `if not node: return` as first line in DFS function. For graphs, validate neighbor exists before recursing.\n\n❌ **Global State Without Reset**: Using global variables for visited/path without resetting between test cases or multiple DFS calls. Causes incorrect results.\n✅ **Fix**: Pass visited/path as parameters, or initialize fresh set before each DFS. For backtracking, use path as local variable or remove node when backtracking.\n\n❌ **Stack Overflow from Deep Recursion**: Recursion depth exceeds system limit (typically 1000-10000) on very deep trees or graphs.\n✅ **Fix**: Use iterative DFS with explicit stack: `stack = [root]` then while loop. Or increase recursion limit: `sys.setrecursionlimit(10000)` (Python).",
+  "code_templates": {
+    "python": "from typing import Optional, List, Set\n\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef dfs_recursive(root: Optional[TreeNode]) -> List[int]:\n    \"\"\"\n    Recursive DFS pre-order traversal of binary tree.\n    \n    Args:\n        root: Root node of binary tree\n    \n    Returns:\n        List of node values in pre-order\n    \n    Time: O(n), Space: O(h) where h is height\n    \n    Example:\n        >>> tree = TreeNode(1, TreeNode(2), TreeNode(3))\n        >>> dfs_recursive(tree)\n        [1, 2, 3]\n    \"\"\"\n    result = []\n    \n    def dfs(node):\n        if not node:\n            return\n        \n        # Pre-order: process node before children\n        result.append(node.val)\n        \n        # Recurse on children\n        dfs(node.left)\n        dfs(node.right)\n    \n    dfs(root)\n    return result\n\ndef dfs_iterative(root: Optional[TreeNode]) -> List[int]:\n    \"\"\"\n    Iterative DFS using explicit stack.\n    \n    Args:\n        root: Root node of binary tree\n    \n    Returns:\n        List of node values in pre-order\n    \n    Time: O(n), Space: O(h)\n    \n    Example:\n        >>> tree = TreeNode(1, TreeNode(2), TreeNode(3))\n        >>> dfs_iterative(tree)\n        [1, 2, 3]\n    \"\"\"\n    if not root:\n        return []\n    \n    result = []\n    stack = [root]\n    \n    while stack:\n        node = stack.pop()  # LIFO - depth first\n        result.append(node.val)\n        \n        # Add right first so left is processed first (LIFO)\n        if node.right:\n            stack.append(node.right)\n        if node.left:\n            stack.append(node.left)\n    \n    return result\n\ndef has_path_sum(root: Optional[TreeNode], target: int) -> bool:\n    \"\"\"\n    DFS to find if path from root to leaf sums to target.\n    \n    Args:\n        root: Root of binary tree\n        target: Target sum\n    \n    Returns:\n        True if path exists, False otherwise\n    \n    Time: O(n), Space: O(h)\n    \n    Example:\n        >>> tree = TreeNode(5, TreeNode(4, TreeNode(11)), TreeNode(8))\n        >>> has_path_sum(tree, 20)\n        True\n    \"\"\"\n    def dfs(node, current_sum):\n        if not node:\n            return False\n        \n        current_sum += node.val\n        \n        # Leaf node check\n        if not node.left and not node.right:\n            return current_sum == target\n        \n        # Check either path (OR logic)\n        return dfs(node.left, current_sum) or dfs(node.right, current_sum)\n    \n    return dfs(root, 0)",
+    "cpp": "#include <vector>\n#include <stack>\nusing namespace std;\n\nstruct TreeNode {\n    int val;\n    TreeNode* left;\n    TreeNode* right;\n    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n};\n\nclass DFSSolution {\npublic:\n    /**\n     * Recursive DFS pre-order traversal.\n     * Time: O(n), Space: O(h)\n     */\n    vector<int> dfsRecursive(TreeNode* root) {\n        vector<int> result;\n        dfsHelper(root, result);\n        return result;\n    }\n    \nprivate:\n    void dfsHelper(TreeNode* node, vector<int>& result) {\n        if (!node) return;\n        \n        // Pre-order: process before children\n        result.push_back(node->val);\n        \n        // Recurse on children\n        dfsHelper(node->left, result);\n        dfsHelper(node->right, result);\n    }\n    \npublic:\n    /**\n     * Iterative DFS using explicit stack.\n     * Time: O(n), Space: O(h)\n     */\n    vector<int> dfsIterative(TreeNode* root) {\n        vector<int> result;\n        if (!root) return result;\n        \n        stack<TreeNode*> stk;\n        stk.push(root);\n        \n        while (!stk.empty()) {\n            TreeNode* node = stk.top();\n            stk.pop();\n            \n            result.push_back(node->val);\n            \n            // Push right first so left is processed first\n            if (node->right) stk.push(node->right);\n            if (node->left) stk.push(node->left);\n        }\n        \n        return result;\n    }\n    \n    /**\n     * DFS to find if path sum equals target.\n     * Time: O(n), Space: O(h)\n     */\n    bool hasPathSum(TreeNode* root, int targetSum) {\n        return dfsPathSum(root, 0, targetSum);\n    }\n    \nprivate:\n    bool dfsPathSum(TreeNode* node, int currentSum, int target) {\n        if (!node) return false;\n        \n        currentSum += node->val;\n        \n        // Leaf node check\n        if (!node->left && !node->right) {\n            return currentSum == target;\n        }\n        \n        // Check either path\n        return dfsPathSum(node->left, currentSum, target) || \n               dfsPathSum(node->right, currentSum, target);\n    }\n};",
+    "java": "import java.util.*;\n\nclass TreeNode {\n    int val;\n    TreeNode left;\n    TreeNode right;\n    TreeNode(int x) { val = x; }\n}\n\npublic class DFSSolution {\n    /**\n     * Recursive DFS pre-order traversal.\n     * Time: O(n), Space: O(h)\n     */\n    public List<Integer> dfsRecursive(TreeNode root) {\n        List<Integer> result = new ArrayList<>();\n        dfsHelper(root, result);\n        return result;\n    }\n    \n    private void dfsHelper(TreeNode node, List<Integer> result) {\n        if (node == null) return;\n        \n        // Pre-order: process before children\n        result.add(node.val);\n        \n        // Recurse on children\n        dfsHelper(node.left, result);\n        dfsHelper(node.right, result);\n    }\n    \n    /**\n     * Iterative DFS using explicit stack.\n     * Time: O(n), Space: O(h)\n     */\n    public List<Integer> dfsIterative(TreeNode root) {\n        List<Integer> result = new ArrayList<>();\n        if (root == null) return result;\n        \n        Stack<TreeNode> stack = new Stack<>();\n        stack.push(root);\n        \n        while (!stack.isEmpty()) {\n            TreeNode node = stack.pop();\n            result.add(node.val);\n            \n            // Push right first so left is processed first\n            if (node.right != null) stack.push(node.right);\n            if (node.left != null) stack.push(node.left);\n        }\n        \n        return result;\n    }\n    \n    /**\n     * DFS to find if path sum equals target.\n     * Time: O(n), Space: O(h)\n     */\n    public boolean hasPathSum(TreeNode root, int targetSum) {\n        return dfsPathSum(root, 0, targetSum);\n    }\n    \n    private boolean dfsPathSum(TreeNode node, int currentSum, int target) {\n        if (node == null) return false;\n        \n        currentSum += node.val;\n        \n        // Leaf node check\n        if (node.left == null && node.right == null) {\n            return currentSum == target;\n        }\n        \n        // Check either path\n        return dfsPathSum(node.left, currentSum, target) || \n               dfsPathSum(node.right, currentSum, target);\n    }\n}"
+  }
+}

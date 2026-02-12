@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database (Disabled - Using External Server at 192.168.164.1)
+  # Uncomment below if you want to use local PostgreSQL container
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: algoref-postgres
+  #   environment:
+  #     POSTGRES_DB: algoref
+  #     POSTGRES_USER: algoref_user
+  #     POSTGRES_PASSWORD: dev_password_change_in_prod
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U algoref_user -d algoref"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: algoref-backend
+    env_file:
+      - .env  # Load all environment variables from .env file (including POSTGRES_* variables)
+    environment:
+      # These can override .env file if needed
+      SECRET_KEY: dev_secret_key_change_in_production_to_random_string
+      ACCESS_TOKEN_EXPIRE_MINUTES: 15
+      REFRESH_TOKEN_EXPIRE_DAYS: 7
+      CORS_ORIGINS: http://localhost:3000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    # depends_on removed - using external PostgreSQL server (no container dependency)
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+
+  # Frontend Dev Server
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: algoref-frontend
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000/api/v1
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules  # Prevent overwriting node_modules
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
+
+# volumes:
+#   postgres_data:  # Not needed when using external PostgreSQL server
+#     driver: local
+
+networks:
+  default:
+    name: algoref-network

@@ -1,0 +1,781 @@
+openapi: 3.0.3
+info:
+  title: Algorithm Reference Platform API
+  version: 1.0.0
+  description: |
+    Production-level API for algorithm reference learning platform.
+    Organizes algorithms by formula/pattern with structured content.
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Local development
+  - url: https://api.algoref.com/api/v1
+    description: Production
+
+tags:
+  - name: algorithms
+    description: Algorithm CRUD and search operations
+  - name: categories
+    description: Algorithm category management
+  - name: languages
+    description: Programming language metadata
+  - name: auth
+    description: Authentication and authorization
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    # Core Models
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Two Pointer"
+        slug:
+          type: string
+          example: "two-pointer"
+        description:
+          type: string
+          example: "Algorithms using two pointers for array/string manipulation"
+        display_order:
+          type: integer
+          example: 1
+        parent_id:
+          type: integer
+          nullable: true
+          example: null
+        color:
+          type: string
+          example: "#0969da"
+      required:
+        - id
+        - name
+        - slug
+
+    DifficultyLevel:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+        name:
+          type: string
+          enum: [Easy, Medium, Hard]
+          example: "Medium"
+        color:
+          type: string
+          example: "#d29922"
+
+    ProgrammingLanguage:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Python"
+        slug:
+          type: string
+          example: "python"
+        extension:
+          type: string
+          example: ".py"
+        prism_key:
+          type: string
+          example: "python"
+          description: "Prism.js language key for syntax highlighting"
+
+    CodeTemplate:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        algorithm_id:
+          type: integer
+          example: 1
+        language:
+          $ref: '#/components/schemas/ProgrammingLanguage'
+        code:
+          type: string
+          example: |
+            def two_pointer_template(arr):
+                left, right = 0, len(arr) - 1
+                while left < right:
+                    # Process logic here
+                    if condition:
+                        left += 1
+                    else:
+                        right -= 1
+                return result
+        explanation:
+          type: string
+          example: "Initialize two pointers at start and end, move them based on condition"
+
+    Algorithm:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Two Pointer Technique"
+        slug:
+          type: string
+          example: "two-pointer-technique"
+        category:
+          $ref: '#/components/schemas/Category'
+        difficulty:
+          $ref: '#/components/schemas/DifficultyLevel'
+
+        # 8-Point Content Structure
+        concept_summary:
+          type: string
+          example: "Two pointer technique uses two indices moving through data structure simultaneously to solve problems in O(n) time complexity."
+
+        core_formulas:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "Opposite Direction Pattern"
+              formula:
+                type: string
+                example: "left = 0, right = n-1; while left < right"
+              description:
+                type: string
+                example: "Pointers start at opposite ends and move toward each other"
+
+        thought_process:
+          type: string
+          example: |
+            1. Identify if problem requires comparing elements from different positions
+            2. Determine pointer movement conditions
+            3. Define termination condition (usually when pointers meet)
+            4. Handle edge cases (empty array, single element)
+
+        application_conditions:
+          type: object
+          properties:
+            when_to_use:
+              type: array
+              items:
+                type: string
+              example:
+                - "Sorted array manipulation"
+                - "Finding pairs with target sum"
+                - "Palindrome checking"
+            when_not_to_use:
+              type: array
+              items:
+                type: string
+              example:
+                - "Unsorted data without preprocessing"
+                - "Random access patterns"
+
+        time_complexity:
+          type: string
+          example: "O(n)"
+
+        space_complexity:
+          type: string
+          example: "O(1)"
+
+        problem_types:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                example: "Pair Sum Problem"
+              leetcode_examples:
+                type: array
+                items:
+                  type: string
+                example: ["LC 1. Two Sum", "LC 167. Two Sum II"]
+
+        common_mistakes:
+          type: string
+          example: |
+            - Forgetting to handle edge cases (empty array, single element)
+            - Incorrect pointer movement causing infinite loops
+            - Not considering duplicate elements in sorted arrays
+
+        code_templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/CodeTemplate'
+
+        is_published:
+          type: boolean
+          example: true
+
+        view_count:
+          type: integer
+          example: 1250
+
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:30:00Z"
+
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-01-20T14:45:00Z"
+
+      required:
+        - id
+        - title
+        - slug
+        - concept_summary
+        - time_complexity
+        - space_complexity
+
+    AlgorithmList:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        slug:
+          type: string
+        category:
+          $ref: '#/components/schemas/Category'
+        difficulty:
+          $ref: '#/components/schemas/DifficultyLevel'
+        concept_summary:
+          type: string
+        time_complexity:
+          type: string
+        space_complexity:
+          type: string
+        view_count:
+          type: integer
+
+    # Request/Response Models
+    PaginatedAlgorithms:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlgorithmList'
+        total:
+          type: integer
+          example: 20
+        page:
+          type: integer
+          example: 1
+        size:
+          type: integer
+          example: 12
+        pages:
+          type: integer
+          example: 2
+
+    AlgorithmCreate:
+      type: object
+      properties:
+        title:
+          type: string
+        category_id:
+          type: integer
+        difficulty_id:
+          type: integer
+        concept_summary:
+          type: string
+        core_formulas:
+          type: array
+          items:
+            type: object
+        thought_process:
+          type: string
+        application_conditions:
+          type: object
+        time_complexity:
+          type: string
+        space_complexity:
+          type: string
+        problem_types:
+          type: array
+          items:
+            type: object
+        common_mistakes:
+          type: string
+      required:
+        - title
+        - category_id
+        - difficulty_id
+        - concept_summary
+        - time_complexity
+        - space_complexity
+
+    AlgorithmUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        category_id:
+          type: integer
+        difficulty_id:
+          type: integer
+        concept_summary:
+          type: string
+        core_formulas:
+          type: array
+        thought_process:
+          type: string
+        application_conditions:
+          type: object
+        time_complexity:
+          type: string
+        space_complexity:
+          type: string
+        problem_types:
+          type: array
+        common_mistakes:
+          type: string
+        is_published:
+          type: boolean
+
+    # Auth Models
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        refresh_token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        token_type:
+          type: string
+          example: "bearer"
+        expires_in:
+          type: integer
+          example: 900
+          description: "Access token expiry in seconds (15 minutes)"
+
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: "admin@algoref.com"
+        password:
+          type: string
+          format: password
+          example: "SecurePass123!"
+      required:
+        - email
+        - password
+
+    RefreshTokenRequest:
+      type: object
+      properties:
+        refresh_token:
+          type: string
+      required:
+        - refresh_token
+
+    # Error Models
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+          example: "Algorithm not found"
+        error_code:
+          type: string
+          example: "ALGORITHM_NOT_FOUND"
+
+    ValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            type: object
+            properties:
+              loc:
+                type: array
+                items:
+                  type: string
+                example: ["body", "title"]
+              msg:
+                type: string
+                example: "field required"
+              type:
+                type: string
+                example: "value_error.missing"
+
+paths:
+  # Algorithm Endpoints
+  /algorithms:
+    get:
+      tags:
+        - algorithms
+      summary: List algorithms with filtering and pagination
+      operationId: listAlgorithms
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 12
+            maximum: 50
+        - name: category_id
+          in: query
+          schema:
+            type: integer
+          description: Filter by category ID
+        - name: difficulty_id
+          in: query
+          schema:
+            type: integer
+          description: Filter by difficulty level
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: Full-text search query
+        - name: sort_by
+          in: query
+          schema:
+            type: string
+            enum: [title, view_count, created_at]
+            default: created_at
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: desc
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAlgorithms'
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /algorithms/{slug}:
+    get:
+      tags:
+        - algorithms
+      summary: Get algorithm by slug
+      operationId: getAlgorithmBySlug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "two-pointer-technique"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Algorithm'
+        '404':
+          description: Algorithm not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # Admin Endpoints (JWT Required)
+  /admin/algorithms:
+    post:
+      tags:
+        - algorithms
+      summary: Create new algorithm (Admin only)
+      operationId: createAlgorithm
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlgorithmCreate'
+      responses:
+        '201':
+          description: Algorithm created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Algorithm'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /admin/algorithms/{id}:
+    put:
+      tags:
+        - algorithms
+      summary: Update algorithm (Admin only)
+      operationId: updateAlgorithm
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlgorithmUpdate'
+      responses:
+        '200':
+          description: Algorithm updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Algorithm'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Algorithm not found
+        '422':
+          description: Validation error
+
+    delete:
+      tags:
+        - algorithms
+      summary: Delete algorithm (Admin only)
+      operationId: deleteAlgorithm
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Algorithm deleted
+        '401':
+          description: Unauthorized
+        '404':
+          description: Algorithm not found
+
+  /admin/algorithms/{id}/templates:
+    post:
+      tags:
+        - algorithms
+      summary: Add code template to algorithm (Admin only)
+      operationId: addCodeTemplate
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                language_id:
+                  type: integer
+                code:
+                  type: string
+                explanation:
+                  type: string
+              required:
+                - language_id
+                - code
+      responses:
+        '201':
+          description: Code template added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeTemplate'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Algorithm not found
+
+  # Category Endpoints
+  /categories:
+    get:
+      tags:
+        - categories
+      summary: List all categories
+      operationId: listCategories
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+
+  /categories/{slug}:
+    get:
+      tags:
+        - categories
+      summary: Get category by slug
+      operationId: getCategoryBySlug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '404':
+          description: Category not found
+
+  # Language Endpoints
+  /languages:
+    get:
+      tags:
+        - languages
+      summary: List all programming languages
+      operationId: listLanguages
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProgrammingLanguage'
+
+  # Auth Endpoints
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Admin login
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /auth/refresh:
+    post:
+      tags:
+        - auth
+      summary: Refresh access token
+      operationId: refreshToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: Token refreshed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          description: Invalid refresh token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /auth/me:
+    get:
+      tags:
+        - auth
+      summary: Get current user info
+      operationId: getCurrentUser
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                  role:
+                    type: string
+        '401':
+          description: Unauthorized

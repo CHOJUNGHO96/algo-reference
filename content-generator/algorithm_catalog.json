@@ -1,0 +1,144 @@
+{
+  "algorithms": [
+    {
+      "title": "Two Pointer Technique",
+      "category": "Two Pointer",
+      "difficulty": "Medium",
+      "priority": 1,
+      "keywords": ["array", "string", "sorted", "opposite direction", "same direction"]
+    },
+    {
+      "title": "Sliding Window",
+      "category": "Sliding Window",
+      "difficulty": "Medium",
+      "priority": 2,
+      "keywords": ["subarray", "substring", "contiguous", "fixed size", "variable size"]
+    },
+    {
+      "title": "Binary Search Template",
+      "category": "Binary Search",
+      "difficulty": "Medium",
+      "priority": 3,
+      "keywords": ["sorted", "search", "divide and conquer", "log n"]
+    },
+    {
+      "title": "Depth-First Search (DFS)",
+      "category": "Tree/Graph",
+      "difficulty": "Medium",
+      "priority": 4,
+      "keywords": ["tree", "graph", "recursion", "backtracking", "stack"]
+    },
+    {
+      "title": "Breadth-First Search (BFS)",
+      "category": "Tree/Graph",
+      "difficulty": "Medium",
+      "priority": 5,
+      "keywords": ["tree", "graph", "level-order", "queue", "shortest path"]
+    },
+    {
+      "title": "Dynamic Programming - 1D DP",
+      "category": "Dynamic Programming",
+      "difficulty": "Hard",
+      "priority": 6,
+      "keywords": ["optimization", "memoization", "fibonacci", "climbing stairs"]
+    },
+    {
+      "title": "Dynamic Programming - 2D DP",
+      "category": "Dynamic Programming",
+      "difficulty": "Hard",
+      "priority": 7,
+      "keywords": ["grid", "matrix", "longest common subsequence", "edit distance"]
+    },
+    {
+      "title": "Greedy Algorithm Pattern",
+      "category": "Greedy",
+      "difficulty": "Medium",
+      "priority": 8,
+      "keywords": ["local optimum", "interval scheduling", "huffman coding"]
+    },
+    {
+      "title": "Union-Find (Disjoint Set)",
+      "category": "Graph",
+      "difficulty": "Medium",
+      "priority": 9,
+      "keywords": ["connected components", "path compression", "union by rank"]
+    },
+    {
+      "title": "Topological Sort",
+      "category": "Graph",
+      "difficulty": "Medium",
+      "priority": 10,
+      "keywords": ["DAG", "course schedule", "build order", "kahn's algorithm"]
+    },
+    {
+      "title": "Trie (Prefix Tree)",
+      "category": "Tree",
+      "difficulty": "Medium",
+      "priority": 11,
+      "keywords": ["prefix", "autocomplete", "word search", "dictionary"]
+    },
+    {
+      "title": "Heap & Priority Queue",
+      "category": "Heap",
+      "difficulty": "Medium",
+      "priority": 12,
+      "keywords": ["min heap", "max heap", "top k", "median", "priority"]
+    },
+    {
+      "title": "Monotonic Stack",
+      "category": "Stack",
+      "difficulty": "Medium",
+      "priority": 13,
+      "keywords": ["next greater", "next smaller", "histogram", "increasing", "decreasing"]
+    },
+    {
+      "title": "Fast & Slow Pointers (Floyd's Cycle Detection)",
+      "category": "Linked List",
+      "difficulty": "Medium",
+      "priority": 14,
+      "keywords": ["cycle detection", "linked list", "middle node", "tortoise hare"]
+    },
+    {
+      "title": "Backtracking Template",
+      "category": "Backtracking",
+      "difficulty": "Hard",
+      "priority": 15,
+      "keywords": ["permutation", "combination", "subset", "recursion", "pruning"]
+    },
+    {
+      "title": "Prefix Sum & Difference Array",
+      "category": "Array",
+      "difficulty": "Easy",
+      "priority": 16,
+      "keywords": ["range query", "cumulative sum", "subarray sum", "interval update"]
+    },
+    {
+      "title": "Merge Intervals Pattern",
+      "category": "Interval",
+      "difficulty": "Medium",
+      "priority": 17,
+      "keywords": ["overlapping", "merge", "meeting rooms", "scheduling"]
+    },
+    {
+      "title": "Kadane's Algorithm (Maximum Subarray)",
+      "category": "Array",
+      "difficulty": "Easy",
+      "priority": 18,
+      "keywords": ["maximum subarray", "dynamic programming", "contiguous", "local maximum"]
+    },
+    {
+      "title": "Bit Manipulation Patterns",
+      "category": "Bit Manipulation",
+      "difficulty": "Medium",
+      "priority": 19,
+      "keywords": ["XOR", "bit masking", "power of two", "count bits", "single number"]
+    },
+    {
+      "title": "Dijkstra's Algorithm (Shortest Path)",
+      "category": "Graph",
+      "difficulty": "Hard",
+      "priority": 20,
+      "keywords": ["shortest path", "weighted graph", "priority queue", "greedy"]
+    }
+  ]
+}

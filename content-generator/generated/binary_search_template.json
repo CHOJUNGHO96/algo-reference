@@ -1,0 +1,94 @@
+{
+  "title": "Binary Search Template",
+  "category": "Binary Search",
+  "difficulty": "Medium",
+  "concept_summary": "Binary Search is a divide-and-conquer algorithm that efficiently searches sorted arrays by repeatedly halving the search space. Instead of O(n) linear scan, it achieves O(log n) by comparing the target with the middle element and eliminating half of remaining elements. Beyond simple search, this template extends to finding boundaries, first/last occurrences, and even searching in rotated or implicit ranges.",
+  "core_formulas": [
+    {
+      "name": "Standard Binary Search",
+      "formula": "left = 0, right = n-1; while left <= right: mid = left + (right-left)//2; if arr[mid] == target: return mid; elif arr[mid] < target: left = mid+1; else: right = mid-1",
+      "description": "Classic binary search for exact match. Uses closed interval [left, right]. Mid calculation avoids overflow. Returns index if found, -1 otherwise. Terminates when left > right."
+    },
+    {
+      "name": "Left Boundary Search (Lower Bound)",
+      "formula": "left = 0, right = n; while left < right: mid = left + (right-left)//2; if arr[mid] < target: left = mid+1; else: right = mid; return left",
+      "description": "Find first position where arr[i] >= target. Uses half-open interval [left, right). Essential for finding insertion point, first occurrence, or smallest element satisfying condition."
+    },
+    {
+      "name": "Right Boundary Search (Upper Bound)",
+      "formula": "left = 0, right = n; while left < right: mid = left + (right-left)//2; if arr[mid] <= target: left = mid+1; else: right = mid; return left",
+      "description": "Find first position where arr[i] > target. Uses half-open interval. Returns one-past-last occurrence of target. Useful for range counting and last occurrence."
+    },
+    {
+      "name": "Condition-Based Search",
+      "formula": "left = min_val, right = max_val; while left < right: mid = left + (right-left)//2; if condition(mid): right = mid; else: left = mid+1; return left",
+      "description": "Search in answer space rather than array. Find minimum value satisfying boolean condition. Used for capacity problems, square root, or implicit ranges."
+    }
+  ],
+  "thought_process": "1. **Precondition Check**: Verify array is sorted (or can be binary-searched like rotated array). Identify what you're searching for: exact value, boundary, or condition.\n\n2. **Template Selection**: Choose standard for exact match, left boundary for first occurrence, right boundary for last occurrence, or condition-based for answer space.\n\n3. **Interval Setup**: Decide between closed [left, right] (standard) or half-open [left, right) (boundaries). This affects loop condition and updates.\n\n4. **Loop Invariant**: Maintain invariant - standard: answer in [left, right]; boundaries: answer at left position when loop ends.\n\n5. **Mid Calculation**: Use `left + (right - left) // 2` to avoid integer overflow, not `(left + right) // 2`.\n\n6. **Search Space Reduction**: Compare mid with target or evaluate condition. Update left = mid + 1 (exclude mid) or right = mid (include mid) based on template.\n\n7. **Termination**: Standard ends when left > right. Boundaries end when left == right. Return appropriate index.\n\n8. **Edge Cases**: Empty array, single element, target not in array, all elements equal, duplicates, search at boundaries.",
+  "application_conditions": {
+    "when_to_use": [
+      "Searching in sorted array with O(log n) requirement",
+      "Finding first/last occurrence in sorted array with duplicates",
+      "Searching rotated sorted array or sorted matrix",
+      "Minimizing/maximizing value that satisfies condition (capacity, koko bananas, split array)",
+      "Finding square root, power, or other monotonic functions",
+      "Searching in implicit ranges (answer between min and max)"
+    ],
+    "when_not_to_use": [
+      "Unsorted array without ability to sort (use hash map or linear search)",
+      "Small arrays where linear search is simpler (n < 10)",
+      "Need to find all occurrences in single pass (use linear scan)",
+      "Array modified frequently making sorting cost prohibitive"
+    ]
+  },
+  "time_complexity": "O(log n) - Each iteration eliminates half of remaining search space. After k iterations, space is n/2^k. Worst case when n/2^k = 1, so k = log₂(n). Best case O(1) if target at middle.",
+  "space_complexity": "O(1) - Iterative version uses constant space (left, right, mid pointers). Recursive version uses O(log n) call stack space, so iterative preferred for space efficiency.",
+  "problem_types": [
+    {
+      "type": "Exact Search in Sorted Array",
+      "leetcode_examples": [
+        "LC 704. Binary Search",
+        "LC 374. Guess Number Higher or Lower"
+      ]
+    },
+    {
+      "type": "First/Last Occurrence and Range",
+      "leetcode_examples": [
+        "LC 34. Find First and Last Position of Element in Sorted Array",
+        "LC 278. First Bad Version",
+        "LC 35. Search Insert Position"
+      ]
+    },
+    {
+      "type": "Rotated or Modified Sorted Array",
+      "leetcode_examples": [
+        "LC 33. Search in Rotated Sorted Array",
+        "LC 81. Search in Rotated Sorted Array II",
+        "LC 153. Find Minimum in Rotated Sorted Array"
+      ]
+    },
+    {
+      "type": "Capacity and Minimization Problems",
+      "leetcode_examples": [
+        "LC 410. Split Array Largest Sum",
+        "LC 875. Koko Eating Bananas",
+        "LC 1011. Capacity To Ship Packages Within D Days"
+      ]
+    },
+    {
+      "type": "Implicit Range Search",
+      "leetcode_examples": [
+        "LC 69. Sqrt(x)",
+        "LC 367. Valid Perfect Square",
+        "LC 441. Arranging Coins"
+      ]
+    }
+  ],
+  "common_mistakes": "❌ **Integer Overflow in Mid Calculation**: Using `mid = (left + right) // 2` causes overflow when left + right exceeds max integer.\n✅ **Fix**: Always use `mid = left + (right - left) // 2` to safely calculate midpoint without overflow risk.\n\n❌ **Infinite Loop with Wrong Boundary Updates**: Using `right = mid` with condition `while left <= right`, or `left = mid` instead of `mid + 1` causes infinite loop.\n✅ **Fix**: Match template exactly. For `left <= right` use `left = mid + 1` and `right = mid - 1`. For `left < right` use `left = mid + 1` and `right = mid`.\n\n❌ **Off-by-One in Boundary Search**: Confusing left/right boundary, or returning wrong index (left vs right) after loop.\n✅ **Fix**: Left boundary finds first i where arr[i] >= target, return left. Right boundary finds first i where arr[i] > target, return left (which is last occurrence + 1).\n\n❌ **Not Handling Empty Array or Out-of-Bounds**: Forgetting to check if array is empty or if returned index is valid.\n✅ **Fix**: Check `if not arr: return -1` at start. After boundary search, check `if left >= len(arr) or arr[left] != target: return -1`.\n\n❌ **Wrong Loop Condition for Template**: Mixing `<=` and `<` between different templates without understanding invariants.\n✅ **Fix**: Standard search uses `while left <= right` (closed interval). Boundary search uses `while left < right` (half-open). Don't mix them.",
+  "code_templates": {
+    "python": "def binary_search(arr: list[int], target: int) -> int:\n    \"\"\"\n    Standard binary search for exact match.\n    \n    Args:\n        arr: Sorted array of integers\n        target: Value to search for\n    \n    Returns:\n        Index of target if found, -1 otherwise\n    \n    Time: O(log n), Space: O(1)\n    \n    Example:\n        >>> binary_search([1, 3, 5, 7, 9], 5)\n        2\n        >>> binary_search([1, 3, 5, 7, 9], 4)\n        -1\n    \"\"\"\n    left, right = 0, len(arr) - 1\n    \n    while left <= right:\n        mid = left + (right - left) // 2  # Avoid overflow\n        \n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1  # Search right half\n        else:\n            right = mid - 1  # Search left half\n    \n    return -1  # Not found\n\n\ndef lower_bound(arr: list[int], target: int) -> int:\n    \"\"\"\n    Find first position where arr[i] >= target (left boundary).\n    \n    Args:\n        arr: Sorted array\n        target: Search value\n    \n    Returns:\n        Index of first element >= target, or len(arr) if all smaller\n    \n    Time: O(log n), Space: O(1)\n    \n    Example:\n        >>> lower_bound([1, 3, 3, 5, 7], 3)\n        1  # First 3\n        >>> lower_bound([1, 3, 3, 5, 7], 4)\n        3  # Position where 4 would be inserted\n    \"\"\"\n    left, right = 0, len(arr)\n    \n    while left < right:\n        mid = left + (right - left) // 2\n        \n        if arr[mid] < target:\n            left = mid + 1  # arr[mid] too small, exclude it\n        else:\n            right = mid  # arr[mid] might be answer, keep it\n    \n    return left\n\n\ndef upper_bound(arr: list[int], target: int) -> int:\n    \"\"\"\n    Find first position where arr[i] > target (right boundary).\n    \n    Args:\n        arr: Sorted array\n        target: Search value\n    \n    Returns:\n        Index of first element > target, or len(arr) if all <= target\n    \n    Time: O(log n), Space: O(1)\n    \n    Example:\n        >>> upper_bound([1, 3, 3, 5, 7], 3)\n        3  # First element > 3 is at index 3\n    \"\"\"\n    left, right = 0, len(arr)\n    \n    while left < right:\n        mid = left + (right - left) // 2\n        \n        if arr[mid] <= target:\n            left = mid + 1  # arr[mid] too small or equal, exclude it\n        else:\n            right = mid  # arr[mid] might be answer, keep it\n    \n    return left",
+    "cpp": "#include <vector>\nusing namespace std;\n\nclass BinarySearchSolution {\npublic:\n    /**\n     * Standard binary search for exact match.\n     * Time: O(log n), Space: O(1)\n     */\n    int binarySearch(vector<int>& arr, int target) {\n        int left = 0, right = arr.size() - 1;\n        \n        while (left <= right) {\n            int mid = left + (right - left) / 2;  // Avoid overflow\n            \n            if (arr[mid] == target) {\n                return mid;\n            } else if (arr[mid] < target) {\n                left = mid + 1;  // Search right half\n            } else {\n                right = mid - 1;  // Search left half\n            }\n        }\n        \n        return -1;  // Not found\n    }\n    \n    /**\n     * Find first position where arr[i] >= target (lower bound).\n     * Time: O(log n), Space: O(1)\n     */\n    int lowerBound(vector<int>& arr, int target) {\n        int left = 0, right = arr.size();\n        \n        while (left < right) {\n            int mid = left + (right - left) / 2;\n            \n            if (arr[mid] < target) {\n                left = mid + 1;\n            } else {\n                right = mid;\n            }\n        }\n        \n        return left;\n    }\n    \n    /**\n     * Find first position where arr[i] > target (upper bound).\n     * Time: O(log n), Space: O(1)\n     */\n    int upperBound(vector<int>& arr, int target) {\n        int left = 0, right = arr.size();\n        \n        while (left < right) {\n            int mid = left + (right - left) / 2;\n            \n            if (arr[mid] <= target) {\n                left = mid + 1;\n            } else {\n                right = mid;\n            }\n        }\n        \n        return left;\n    }\n};",
+    "java": "public class BinarySearchSolution {\n    /**\n     * Standard binary search for exact match.\n     * Time: O(log n), Space: O(1)\n     */\n    public int binarySearch(int[] arr, int target) {\n        int left = 0, right = arr.length - 1;\n        \n        while (left <= right) {\n            int mid = left + (right - left) / 2;  // Avoid overflow\n            \n            if (arr[mid] == target) {\n                return mid;\n            } else if (arr[mid] < target) {\n                left = mid + 1;  // Search right half\n            } else {\n                right = mid - 1;  // Search left half\n            }\n        }\n        \n        return -1;  // Not found\n    }\n    \n    /**\n     * Find first position where arr[i] >= target (lower bound).\n     * Time: O(log n), Space: O(1)\n     */\n    public int lowerBound(int[] arr, int target) {\n        int left = 0, right = arr.length;\n        \n        while (left < right) {\n            int mid = left + (right - left) / 2;\n            \n            if (arr[mid] < target) {\n                left = mid + 1;\n            } else {\n                right = mid;\n            }\n        }\n        \n        return left;\n    }\n    \n    /**\n     * Find first position where arr[i] > target (upper bound).\n     * Time: O(log n), Space: O(1)\n     */\n    public int upperBound(int[] arr, int target) {\n        int left = 0, right = arr.length;\n        \n        while (left < right) {\n            int mid = left + (right - left) / 2;\n            \n            if (arr[mid] <= target) {\n                left = mid + 1;\n            } else {\n                right = mid;\n            }\n        }\n        \n        return left;\n    }\n}"
+  }
+}

@@ -1,0 +1,65 @@
+.algorithm-editor {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+}
+
+.editor-header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.editor-content {
+  background: var(--card-bg, #ffffff);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.algorithm-form .ant-tabs {
+  margin-bottom: 2rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color, #e0e0e0);
+}
+
+.preview-panel {
+  min-height: 400px;
+}
+
+.algorithm-editor-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .editor-content {
+    background: var(--card-bg, #1f1f1f);
+  }
+
+  .editor-header {
+    border-bottom-color: var(--border-color, #444);
+  }
+
+  .form-actions {
+    border-top-color: var(--border-color, #444);
+  }
+}

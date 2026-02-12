@@ -1,0 +1,42 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd frontend && npx prettier --write {file} || true",
+            "description": "프론트엔드 코드 자동 포맷팅 (Prettier)"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(cd backend && pytest *)",
+      "Bash(cd backend && alembic *)",
+      "Bash(cd backend && uvicorn *)",
+      "Bash(cd backend && python -m *)",
+      "Bash(cd frontend && npm run *)",
+      "Bash(cd frontend && npm install *)",
+      "Bash(cd frontend && npm test *)",
+      "Bash(docker-compose *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(sudo *)",
+      "Bash(pip install * --global)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(git commit *)",
+      "Bash(docker *)",
+      "Bash(alembic downgrade *)"
+    ]
+  }
+}

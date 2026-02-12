@@ -1,0 +1,160 @@
+.code-block-wrapper {
+  margin: var(--space-4) 0;
+}
+
+.code-explanation {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: none;
+}
+
+.explanation-label {
+  color: var(--accent-blue);
+  font-weight: 600;
+  margin-right: var(--space-2);
+}
+
+.explanation-text {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.code-block-container {
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.code-explanation + .code-block-container {
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  border-top: none;
+}
+
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--code-border);
+}
+
+.code-language {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.code-copy-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: transparent;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-3);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.code-copy-button:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+
+.code-copy-button:active {
+  transform: scale(0.98);
+}
+
+/* Code content */
+.code-block-container pre {
+  margin: 0;
+  padding: var(--space-4);
+  overflow-x: auto;
+  background-color: var(--code-bg);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.code-block-container code {
+  font-family: var(--font-mono);
+  color: var(--code-text);
+}
+
+/* Line numbers */
+.line-numbers {
+  counter-reset: line;
+}
+
+.line-numbers code {
+  display: block;
+}
+
+.line-numbers code::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 3em;
+  margin-right: var(--space-4);
+  color: var(--text-tertiary);
+  text-align: right;
+  user-select: none;
+}
+
+/* Prism.js override for dark theme */
+.code-block-container .token.comment,
+.code-block-container .token.prolog,
+.code-block-container .token.doctype,
+.code-block-container .token.cdata {
+  color: var(--code-comment);
+}
+
+.code-block-container .token.punctuation {
+  color: var(--text-secondary);
+}
+
+.code-block-container .token.property,
+.code-block-container .token.tag,
+.code-block-container .token.boolean,
+.code-block-container .token.number,
+.code-block-container .token.constant,
+.code-block-container .token.symbol,
+.code-block-container .token.deleted {
+  color: var(--code-number);
+}
+
+.code-block-container .token.selector,
+.code-block-container .token.attr-name,
+.code-block-container .token.string,
+.code-block-container .token.char,
+.code-block-container .token.builtin,
+.code-block-container .token.inserted {
+  color: var(--code-string);
+}
+
+.code-block-container .token.operator,
+.code-block-container .token.entity,
+.code-block-container .token.url,
+.code-block-container .language-css .token.string,
+.code-block-container .style .token.string {
+  color: var(--text-primary);
+}
+
+.code-block-container .token.atrule,
+.code-block-container .token.attr-value,
+.code-block-container .token.keyword {
+  color: var(--code-keyword);
+}
+
+.code-block-container .token.function,
+.code-block-container .token.class-name {
+  color: var(--code-function);
+}
