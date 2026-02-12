@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { SearchOutlined, LoginOutlined, GithubOutlined } from '@ant-design/icons';
+import { SearchOutlined, LoginOutlined } from '@ant-design/icons';
 import './Header.css';
 
 export const Header = () => {
@@ -26,15 +26,6 @@ export const Header = () => {
           <Link to="/algorithms" className="nav-link">
             알고리즘
           </Link>
-          <a
-            href="https://github.com/CHOJUNGHO96/algo-reference"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="nav-link"
-            title="GitHub 저장소"
-          >
-            <GithubOutlined />
-          </a>
           <Link to="/admin" className="nav-link admin-link">
             <LoginOutlined /> 관리자
           </Link>

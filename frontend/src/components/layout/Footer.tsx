@@ -18,7 +18,7 @@ export const Footer = () => {
 
         <div className="footer-links">
           <a
-            href="https://github.com"
+            href="https://github.com/CHOJUNGHO96/algo-reference"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-link"
