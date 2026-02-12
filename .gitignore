@@ -59,3 +59,8 @@ Thumbs.db
 # Logs
 *.log
 logs/
+
+# bkit plugin state files
+.bkit/agent-state.json
+docs/.bkit-memory.json
+docs/.pdca-status.json
