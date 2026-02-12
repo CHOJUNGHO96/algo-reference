@@ -1,124 +1,124 @@
-# Algorithm Content Generation Prompt
+# 알고리즘 콘텐츠 생성 프롬프트
 
-You are an expert algorithm educator creating high-quality reference content for coding interview preparation. Your target audience is early-to-intermediate developers preparing for technical interviews at top tech companies.
+당신은 코딩 인터뷰 준비를 위한 고품질 참고 자료를 만드는 알고리즘 교육 전문가입니다. 대상 독자는 글로벌 빅테크 기업 기술 면접을 준비하는 초중급 개발자입니다.
 
-## Algorithm Details
-- **Title**: {title}
-- **Category**: {category}
-- **Difficulty**: {difficulty}
-- **Keywords**: {keywords}
-
----
-
-## Generate 8-Point Content Structure
-
-### 1. Concept Summary (1-2 paragraphs)
-
-Write a clear, concise explanation of what this algorithm is and its core idea. Focus on:
-- What problem pattern does it solve?
-- What is the key insight that makes it work?
-- Why is it important for coding interviews?
-
-**Requirements**:
-- Length: 100-500 characters
-- Language: Simple, direct, non-academic
-- Include a concrete example scenario
+## 알고리즘 정보
+- **제목**: {title}
+- **카테고리**: {category}
+- **난이도**: {difficulty}
+- **키워드**: {keywords}
 
 ---
 
-### 2. Core Formulas/Patterns
+## 8가지 콘텐츠 구조 생성
 
-Provide 2-4 key formulas or patterns that define this algorithm. Each should include:
+### 1. 개념 요약 (1-2 문단)
 
-**Format**:
+이 알고리즘이 무엇인지, 핵심 아이디어가 무엇인지 명확하고 간결하게 설명하세요. 다음에 집중하세요:
+- 어떤 문제 패턴을 해결하는가?
+- 작동하게 만드는 핵심 통찰은 무엇인가?
+- 코딩 인터뷰에서 왜 중요한가?
+
+**요구사항**:
+- 길이: 100-500자
+- 언어: 단순하고 직접적이며 학술적이지 않은 표현
+- 구체적인 예시 시나리오 포함
+
+---
+
+### 2. 핵심 공식/패턴
+
+이 알고리즘을 정의하는 2-4개의 핵심 공식이나 패턴을 제공하세요. 각각은 다음을 포함해야 합니다:
+
+**형식**:
 ```json
 {
-  "name": "Pattern/Formula Name",
-  "formula": "Pseudocode or mathematical representation",
-  "description": "When and why to use this pattern (50-100 words)"
+  "name": "패턴/공식 이름",
+  "formula": "의사코드 또는 수학적 표현",
+  "description": "언제, 왜 이 패턴을 사용하는지 (50-100 단어)"
 }
 ```
 
-**Example for Two Pointers**:
+**투 포인터 예시**:
 ```json
 {
-  "name": "Opposite Direction Pointers",
+  "name": "반대 방향 포인터",
   "formula": "left = 0, right = n-1; while left < right: process(arr[left], arr[right]); move pointers",
-  "description": "Use when searching for pairs in sorted arrays or palindrome validation. Converge from both ends toward center."
+  "description": "정렬된 배열에서 쌍을 찾거나 회문 검증 시 사용. 양 끝에서 중앙을 향해 수렴."
 }
 ```
 
 ---
 
-### 3. Thought Process (Step-by-step)
+### 3. 사고 과정 (단계별)
 
-Outline the systematic approach to applying this algorithm. Provide a clear mental model:
+이 알고리즘을 적용하는 체계적인 접근법을 설명하세요. 명확한 멘탈 모델 제공:
 
-1. **Recognition**: How to identify this pattern in a problem statement
-2. **Setup**: Initial data structure setup and variable initialization
-3. **Main Logic**: The core loop/recursion with decision points
-4. **Termination**: When and how to stop
-5. **Edge Cases**: Common boundary conditions to handle
+1. **인식**: 문제 설명에서 이 패턴을 어떻게 식별하는가
+2. **설정**: 초기 자료구조 설정 및 변수 초기화
+3. **핵심 로직**: 결정 지점이 있는 핵심 루프/재귀
+4. **종료**: 언제, 어떻게 멈추는가
+5. **엣지 케이스**: 처리해야 할 일반적인 경계 조건
 
-**Requirements**:
-- Minimum 200 characters
-- Use numbered steps
-- Include decision-making logic (if/else conditions)
-
----
-
-### 4. Application Conditions
-
-**When to Use** (3-5 bullet points):
-Specific problem characteristics that signal this algorithm is appropriate:
-- Input properties (sorted, unsorted, size constraints)
-- Output requirements (optimization, search, counting)
-- Constraint patterns (time/space limits)
-
-**When NOT to Use** (2-3 bullet points):
-Situations where this algorithm is inefficient or inappropriate:
-- Alternative patterns that work better
-- Input characteristics that break assumptions
-- Performance pitfalls
-
-**Example**:
-✅ **When to Use**:
-- Sorted array with pair/triplet sum target
-- String palindrome validation
-- Container with most water type problems
-
-❌ **When NOT to Use**:
-- Unsorted data requiring arbitrary access
-- Problems needing frequency counting (use hash map instead)
+**요구사항**:
+- 최소 200자
+- 번호가 매겨진 단계 사용
+- 의사결정 로직 포함 (if/else 조건)
 
 ---
 
-### 5. Time/Space Complexity
+### 4. 적용 조건
 
-Provide Big-O notation with clear explanations:
+**언제 사용할까** (3-5개 항목):
+이 알고리즘이 적합함을 나타내는 구체적인 문제 특성:
+- 입력 속성 (정렬됨, 정렬 안 됨, 크기 제약)
+- 출력 요구사항 (최적화, 검색, 개수 세기)
+- 제약 패턴 (시간/공간 제한)
 
-**Time Complexity**: O(?)
-- Explain why (loop iterations, recursion depth, operations per iteration)
-- Best/Average/Worst case if applicable
+**언제 사용하지 말까** (2-3개 항목):
+이 알고리즘이 비효율적이거나 부적절한 상황:
+- 더 잘 작동하는 대안 패턴
+- 가정을 깨는 입력 특성
+- 성능 함정
 
-**Space Complexity**: O(?)
-- Explain auxiliary space usage (stack, heap, temporary data structures)
-- Distinguish between input space and extra space
+**예시**:
+✅ **언제 사용할까**:
+- 쌍/삼중 합 목표가 있는 정렬된 배열
+- 문자열 회문 검증
+- 가장 많은 물을 담는 컨테이너 유형 문제
 
-**Requirements**:
-- Must use valid Big-O notation (e.g., O(n), O(n log n), O(n²))
-- Pattern: `r"O\(.+\)"`
+❌ **언제 사용하지 말까**:
+- 임의 접근이 필요한 정렬되지 않은 데이터
+- 빈도 수 세기가 필요한 문제 (대신 해시맵 사용)
 
 ---
 
-### 6. Representative Problem Types
+### 5. 시간/공간 복잡도
 
-List 3-5 common problem patterns where this algorithm is the optimal solution.
+명확한 설명과 함께 Big-O 표기법 제공:
 
-**Format**:
+**시간 복잡도**: O(?)
+- 이유 설명 (루프 반복, 재귀 깊이, 반복당 연산)
+- 해당되는 경우 최선/평균/최악의 경우
+
+**공간 복잡도**: O(?)
+- 보조 공간 사용 설명 (스택, 힙, 임시 자료구조)
+- 입력 공간과 추가 공간 구별
+
+**요구사항**:
+- 유효한 Big-O 표기법 사용 (예: O(n), O(n log n), O(n²))
+- 패턴: `r"O\(.+\)"`
+
+---
+
+### 6. 대표 문제 유형
+
+이 알고리즘이 최적 솔루션인 3-5개의 일반적인 문제 패턴을 나열하세요.
+
+**형식**:
 ```json
 {
-  "type": "Problem Pattern Name",
+  "type": "문제 패턴 이름",
   "leetcode_examples": [
     "LC 1. Two Sum",
     "LC 15. 3Sum",
@@ -127,58 +127,58 @@ List 3-5 common problem patterns where this algorithm is the optimal solution.
 }
 ```
 
-**Requirements**:
-- Minimum 3 problem types
-- Each type must have 2+ LeetCode examples
-- Include LeetCode problem numbers and exact titles
-- Order by difficulty (Easy → Medium → Hard)
+**요구사항**:
+- 최소 3개 문제 유형
+- 각 유형은 2개 이상의 LeetCode 예시 필요
+- LeetCode 문제 번호와 정확한 제목 포함
+- 난이도순 정렬 (쉬움 → 보통 → 어려움)
 
-**Example Categories**:
-- Pair/Triplet sum problems
-- Palindrome validation
-- Container/Water trapping
-- Subarray/Substring problems
+**예시 카테고리**:
+- 쌍/삼중 합 문제
+- 회문 검증
+- 컨테이너/물 가두기
+- 부분배열/부분문자열 문제
 
 ---
 
-### 7. Code Templates
+### 7. 코드 템플릿
 
-Provide clean, production-ready templates in Python, C++, and Java.
+Python, C++, Java로 깔끔하고 프로덕션 준비된 템플릿 제공.
 
-**Requirements for Each Template**:
-- ✅ Compilable/Runnable code (no pseudocode)
-- ✅ Well-commented with key insights
-- ✅ Proper formatting and consistent style
-- ✅ Minimum 100 characters per language
-- ✅ Include a sample usage/test case in comments
+**각 템플릿 요구사항**:
+- ✅ 컴파일/실행 가능한 코드 (의사코드 불가)
+- ✅ 핵심 통찰이 담긴 주석
+- ✅ 적절한 포맷팅과 일관된 스타일
+- ✅ 언어당 최소 100자
+- ✅ 주석에 샘플 사용/테스트 케이스 포함
 
-**Python Template** (Preferred for interviews):
-- Use type hints (Python 3.10+ style)
-- Follow PEP 8 style guide
-- Include docstring with examples
+**Python 템플릿** (면접 선호):
+- 타입 힌트 사용 (Python 3.10+ 스타일)
+- PEP 8 스타일 가이드 준수
+- 예제가 포함된 docstring
 
-**C++ Template**:
-- Use modern C++17 features
-- Include necessary headers
-- Use `std::` namespace explicitly
+**C++ 템플릿**:
+- 모던 C++17 기능 사용
+- 필요한 헤더 포함
+- `std::` 네임스페이스 명시적 사용
 
-**Java Template**:
-- Use Java 11+ features
-- Include class structure
-- Follow Google Java Style Guide
+**Java 템플릿**:
+- Java 11+ 기능 사용
+- 클래스 구조 포함
+- Google Java Style Guide 준수
 
-**Example Structure**:
+**예시 구조**:
 ```python
 def algorithm_name(arr: list[int], target: int) -> int:
     """
-    Brief description of what this function does.
+    이 함수가 무엇을 하는지 간단한 설명.
 
     Args:
-        arr: Input array (assumptions about arr)
-        target: Target value
+        arr: 입력 배열 (arr에 대한 가정)
+        target: 목표 값
 
     Returns:
-        Result description
+        결과 설명
 
     Time: O(n)
     Space: O(1)
@@ -187,11 +187,11 @@ def algorithm_name(arr: list[int], target: int) -> int:
         >>> algorithm_name([1, 2, 3], 5)
         2
     """
-    # Key insight comment
+    # 핵심 통찰 주석
     left, right = 0, len(arr) - 1
 
     while left < right:
-        # Decision logic comment
+        # 결정 로직 주석
         if condition:
             left += 1
         else:
@@ -202,79 +202,79 @@ def algorithm_name(arr: list[int], target: int) -> int:
 
 ---
 
-### 8. Common Mistakes
+### 8. 주의사항
 
-List 3-5 pitfalls developers commonly encounter when implementing or applying this algorithm.
+이 알고리즘을 구현하거나 적용할 때 개발자가 일반적으로 겪는 3-5가지 함정을 나열하세요.
 
-**Format for Each Mistake**:
-- ❌ **Mistake Description**: What developers do wrong
-- ⚠️ **Why It Happens**: Root cause or misconception
-- ✅ **How to Avoid**: Corrective action or best practice
+**각 실수 형식**:
+- ❌ **실수 설명**: 개발자가 잘못하는 것
+- ⚠️ **발생 이유**: 근본 원인 또는 오해
+- ✅ **피하는 방법**: 교정 조치 또는 모범 사례
 
-**Example**:
-❌ **Off-by-One Errors in Boundary Conditions**
-⚠️ Happens when using `<=` instead of `<` in while loop conditions, or incorrect initial pointer positions
-✅ Draw out examples with arrays of size 0, 1, 2 to verify boundary logic
+**예시**:
+❌ **경계 조건의 Off-by-One 에러**
+⚠️ while 루프 조건에서 `<` 대신 `<=`를 사용하거나 초기 포인터 위치가 잘못될 때 발생
+✅ 크기 0, 1, 2의 배열 예제를 그려서 경계 로직 검증
 
-**Requirements**:
-- Minimum 150 characters total
-- Include at least 3 distinct mistakes
-- Provide actionable fixes
+**요구사항**:
+- 총 최소 150자
+- 최소 3개의 구별되는 실수 포함
+- 실행 가능한 수정 사항 제공
 
 ---
 
-## Output Format
+## 출력 형식
 
-Return **ONLY** valid JSON matching this exact schema. Do not include markdown code blocks, explanations, or any text outside the JSON object.
+이 정확한 스키마와 일치하는 **유효한 JSON만** 반환하세요. 마크다운 코드 블록, 설명 또는 JSON 객체 외부의 텍스트를 포함하지 마세요.
 
 ```json
 {
-  "title": "Algorithm Title",
-  "category": "Algorithm Category",
+  "title": "알고리즘 제목",
+  "category": "알고리즘 카테고리",
   "difficulty": "Easy|Medium|Hard",
-  "concept_summary": "Clear 1-2 paragraph explanation (100-500 chars)",
+  "concept_summary": "명확한 1-2 문단 설명 (100-500자)",
   "core_formulas": [
     {
-      "name": "Pattern Name",
-      "formula": "Pseudocode representation",
-      "description": "When/why to use (50-100 words)"
+      "name": "패턴 이름",
+      "formula": "의사코드 표현",
+      "description": "언제/왜 사용 (50-100 단어)"
     }
   ],
-  "thought_process": "Numbered step-by-step approach (200+ chars)",
+  "thought_process": "번호가 매겨진 단계별 접근법 (200자 이상)",
   "application_conditions": {
     "when_to_use": [
-      "Condition 1",
-      "Condition 2",
-      "Condition 3"
+      "조건 1",
+      "조건 2",
+      "조건 3"
     ],
     "when_not_to_use": [
-      "Condition 1",
-      "Condition 2"
+      "조건 1",
+      "조건 2"
     ]
   },
-  "time_complexity": "O(...) - explanation",
-  "space_complexity": "O(...) - explanation",
+  "time_complexity": "O(...) - 설명",
+  "space_complexity": "O(...) - 설명",
   "problem_types": [
     {
-      "type": "Problem Pattern Name",
+      "type": "문제 패턴 이름",
       "leetcode_examples": [
-        "LC 1. Problem Title",
-        "LC 2. Problem Title"
+        "LC 1. 문제 제목",
+        "LC 2. 문제 제목"
       ]
     }
   ],
-  "common_mistakes": "3-5 pitfalls with descriptions and fixes (150+ chars)",
+  "common_mistakes": "설명과 수정 사항이 있는 3-5개 함정 (150자 이상)",
   "code_templates": {
-    "python": "Complete Python code with type hints and docstring (100+ chars)",
-    "cpp": "Complete C++17 code with headers (100+ chars)",
-    "java": "Complete Java code with class structure (100+ chars)"
+    "python": "타입 힌트와 docstring이 포함된 완전한 Python 코드 (100자 이상)",
+    "cpp": "헤더가 포함된 완전한 C++17 코드 (100자 이상)",
+    "java": "클래스 구조가 포함된 완전한 Java 코드 (100자 이상)"
   }
 }
 ```
 
-**CRITICAL**:
-- Output ONLY the JSON object
-- No markdown code fences (\`\`\`json)
-- No explanatory text before or after
-- Ensure all JSON is properly escaped
-- Validate against schema before returning
+**중요**:
+- JSON 객체만 출력
+- 마크다운 코드 펜스 불가 (\`\`\`json)
+- 앞뒤에 설명 텍스트 불가
+- 모든 JSON이 적절히 이스케이프되었는지 확인
+- 반환하기 전에 스키마에 대해 검증
